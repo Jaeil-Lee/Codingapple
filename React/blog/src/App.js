@@ -3,7 +3,8 @@ import { useState } from "react";
 import "./App.css";
 import React, { useRef } from "react"; // 🟡input 자동 focus용
 
-
+/* 리액트를 활용한 블로그 만들기 */
+ 
 function App() {
   /* 🟢변수 - return 밖에 선언 */
   let post = "DESIGNED BT ICHIBAN";
