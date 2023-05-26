@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- JQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <title>Document</title>
+
+  <!-- 부트스트랩 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link rel="stylesheet" href="main.css">
+
+
+</head>
+<!-- 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 -->
+
+<body class="dark">
+
+  <!--  숨겨진 로그인 페이지 -->
+  <div class="black-bg ">
+    <div class="white-bg">
+      <h4>로그인하세요</h4>
+      <form action="success.html">
+        <div class="my-3">
+          <input type="text" class="form-control" id="email">
+        </div>
+        <div class="my-3">
+          <input type="password" class="form-control" id="pw">
+        </div>
+        <button type="submit" class="btn btn-primary">전송</button>
+        <button type="button" class="btn btn-danger close" id="close">닫기</button>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- 1. NAV BAR -->
+  <nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+      <span class="navbar-brand">ICHIBAN'SHOP</span>
+      <span class="badge bg-dark">Dark 🔄</span>
+      <button class="navbar-toggler" type="button">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+
+  </nav>
+
+  <!-- 상황 진행 바 -->
+  <div class="lineBar"></div>
+
+  <!-- 2. SUB-MENU -->
+  <ul class="list-group ">
+    <li class="list-group-item">An item</li>
+    <li class="list-group-item">A second item</li>
+    <li class="list-group-item">A third item</li>
+    <li class="list-group-item">A fourth item</li>
+    <li class="list-group-item">And a fifth one</li>
+  </ul>
+
+  <!-- 3. BACKGROUND -->
+  <div class="main-bg">
+    <h4>お買い得！！</h4>
+    <button id="login" class="btn btn-danger">ログイン</button>
+  </div>
+
+  <!-- 4. 알림상자 -->
+  <div class="alert alert-danger">
+    <span id="sec">5</span>초 이내 구매시 사은품 증정
+  </div>
+
+  <!-- 5. 캐러셀 -->
+  <div style="overflow: hidden">
+    <div class="slide-container">
+      <div class="slide-box" id="1">
+        <img src="car1.png" draggable="false">
+      </div>
+      <div class="slide-box" id="2">
+        <img src="car2.png">
+      </div>
+      <div class="slide-box" id="3">
+        <img src="car3.png">
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    let 시작좌표 = 0;
+    var 눌렀냐 = false
+
+    $('.slide-box').eq(0).on('mousedown', function (e) {
+      시작좌표 = e.clientX;
+      눌렀냐 = true;
+    });
+
+    $('.slide-box').eq(0).on('mousemove', function (e) {
+      if (눌렀냐 == true) {
+        $('.slide-container').css('transform', `translateX( ${e.clientX - 시작좌표}px )`)
+      }
+    });
+
+    $('.slide-box').eq(0).on('mouseup', function (e) {
+      눌렀냐 = false;
+      console.log(e.clientX - 시작좌표);
+      if (e.clientX - 시작좌표 < -100) {
+        $('.slide-container').css('transform', 'translateX(-100vw)');
+      } else {
+        $('.slide-container').css('transform', 'translateX(0vw)');
+      }
+      setTimeout(() => {
+        $('.slide-container').css('transition', 'none')
+      }, 500)
+    });
+
+
+
+
+  </script>
+
+
+
+
+
+
+
+  <button class="former">이전</button>
+  <button class="slide-1">1</button>
+  <button class="slide-2">2</button>
+  <button class="slide-3">3</button>
+  <button class="next">이후</button>
+
+  <div class="lorem" style="width: 200px; height: 100px; overflow-y: scroll">
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae voluptas voluptatum minus praesentium fugit debitis
+    at, laborum ipsa itaque placeat sit, excepturi eius. Nostrum perspiciatis, eligendi quae consectetur praesentium
+    exercitationem.
+  </div>
+
+  <div style="height: 5000px"></div>
+
+  <!---------------------------------------------------------->
+  <script>
+
+
+    // $('.black-bg').on('click',(e)=>{
+    //   console.log(e.target);
+    //   console.log(document.querySelector('.black-bg'));
+    //   if (e.target == document.querySelector('.black-bg')) {
+    //     document.querySelector('.black-bg').classList.remove('show-modal');
+    //   }
+    // })
+
+
+
+    // 🟡 제목 작아지게 
+    $(window).on('scroll', function () {
+      let yNum = $(window).scrollTop();
+      // console.log(yNum);
+      if (window.scrollY >= 100) {
+        document.querySelector('.navbar-brand').style.fontSize = '25px';
+      } else if (window.scrollY < 100) {
+        document.querySelector('.navbar-brand').style.fontSize = '30px';
+      }
+    })
+
+    // 🟡 작은 상자 다 읽으면 경고
+    $('.lorem').on('scroll', () => {
+      //  console.log($('.lorem').scrollTop())
+      var topScroll = parseInt(document.querySelector('.lorem').scrollTop);
+      var realScroll = parseInt(document.querySelector('.lorem').scrollHeight);
+      var lientScroll = parseInt(document.querySelector('.lorem').clientHeight);
+      console.log(topScroll, realScroll, lientScroll);
+      if (topScroll + 100 == realScroll) {
+        alert('마 잘했네');
+      }
+    });
+
+
+
+    // 🟡 캐러셀 만들기
+    document.querySelector('.slide-1').addEventListener('click', () => {
+      document.querySelector('.slide-container').style.transform = 'translateX(0vw)'
+    })
+    document.querySelector('.slide-2').addEventListener('click', () => {
+      document.querySelector('.slide-container').style.transform = 'translateX(-100vw)'
+    })
+    document.querySelector('.slide-3').addEventListener('click', () => {
+      document.querySelector('.slide-container').style.transform = 'translateX(-200vw)'
+    })
+
+
+    // 이전 , 이후
+    let now = 1;
+
+    // 사진이 여러개 있다고 가정해 보자 
+    /*
+      1번 사전이면 그 다음 사진인 1+1 을 여줘 
+    */
+    document.querySelector('.next').addEventListener('click', () => {
+      document.querySelector('.slide-container').style.transform = `translateX(-${now}00vw)`
+      if (now < 2) {
+        now++;
+      }
+    })
+    document.querySelector('.former').addEventListener('click', () => {
+      document.querySelector('.slide-container').style.transform = `translateX(-${now}00vw)`
+      if (now > 0) {
+        now--;
+      }
+    })
+
+
+
+
+
+
+    // 깜빡이기 
+    let count_blink = 5;
+
+    setInterval(() => {
+      count_blink--;
+      document.getElementById('sec').innerHTML = count_blink;
+      if (count_blink < 0) {
+        document.getElementsByClassName('alert')[0].classList.add('novisible');
+
+      }
+    }, 1000);
+
+
+
+    // 🟡 setInterval , ms (1000  )
+    // setInterval(() => {
+    //   document.getElementsByClassName('alert')[0].classList.add('novisible');
+    // }, 500);
+    // setInterval(() => {
+    //   document.getElementsByClassName('alert')[0].classList.remove('novisible');
+    // }, 1000);
+
+
+
+
+
+
+    // // 🟡다크모드
+    var count1 = 0;
+    $('.badge').on('click', function () {
+      count1++
+
+      if (count1 % 2 == 0) {
+        // 짝수
+        document.querySelector('.badge').innerHTML = 'Dark 🔄'
+        $('.bad').html('Dark 🔄 ')
+      } else {
+        // 홀수
+        document.querySelector('.badge').innerHTML = 'Light 🔄'
+      }
+
+    })
+
+
+
+    // // 🟡NAV VAR 토굴
+    document.querySelector('.navbar-toggler').addEventListener('click', function () {
+      document.querySelector('.list-group').classList.toggle('show');
+    })
+
+
+
+    // // 🟡 로그인 페이지
+    $('.btn-danger').on('click', () => { $('.black-bg').addClass('show-modal') });
+
+    document.getElementById('close').addEventListener('click', function () {
+
+      document.getElementsByClassName('black-bg')[0].classList.remove('show-modal')
+    })
+
+
+    // // 🟡 로그인 경고
+    $('form').on('submit', function (e) {
+
+      if (document.getElementById('email') == '') {
+        e.preventDefault();
+        alert("아이디 입력!");
+      }
+      if (document.getElementById('pw').value == '') {
+        e.preventDefault();
+        alert("pw 입력!");
+      } else if (document.getElementById('pw').value.length < 5) {
+        e.preventDefault();
+        alert("pw 5글자 이상 입력!");
+      }
+    })
+
+
+    /* 🟡 위에 % 바 만들기 */
+    let nowScroll = document.querySelector('html').scrollTop;  //현재 웹페이지 스크롤양
+    let max = document.querySelector('html').scrollHeight; //현재 웹페이지 실제높이
+    let visible = document.querySelector('html').clientHeight;
+    // $(html).on('scroll',()=>{
+    //   // console.log(((nowScroll+visible)/max*100));
+    //   console.log(visible);
+    // })
+
+
+    window.addEventListener('scroll', () => {
+
+      var 실제높이 = document.querySelector('html').scrollHeight
+      var 높이 = document.querySelector('html').clientHeight
+      var 스크롤양 = window.scrollY
+      // console.log(높이);
+      let bar = parseInt((스크롤양 / (실제높이 - 높이)) * 100).toFixed(0);
+      console.log(document.querySelector('.lineBar').style.width = `${bar}%`);
+
+    })
+
+
+
+
+
+
+  </script>
+
+
+
+
+  <!-- 부트스트랩 -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script>
+
+</body>
+
+</html>

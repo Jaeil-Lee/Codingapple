@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- JQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- css -->
+  <link rel="stylesheet" href="main.css">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <!-- 5. 캐러셀 -->
+  <div style="overflow: hidden">
+    <div class="slide-container">
+      <div class="slide-box" id="1">
+        <img src="car1.png" draggable="false">
+      </div>
+      <div class="slide-box" id="2">
+        <img src="car2.png">
+      </div>
+      <div class="slide-box" id="3">
+        <img src="car3.png">
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+    let onClick;
+    let onOff;
+    let result;
+
+
+    document.querySelectorAll('.slide-box')[0].addEventListener('mousedown', function (e) {
+      console.log(e.clientX);
+      onClick = e.clientX;
+      onOff = true;
+    })
+
+    document.querySelectorAll('.slide-box')[0].addEventListener('mousemove', function (e) {
+      if (onOff) {
+        let result = e.clientX - onClick;
+        document.querySelector('.slide-container').style.transform = `translateX(${result}px)`
+
+      }
+    })
+
+    document.querySelectorAll('.slide-box')[0].addEventListener('mouseup', function (e) {
+      onOff = false;
+      console.log(e.clientX - onClick);
+
+      if (e.clientX - onClick < -100) {
+        document.querySelector('.slide-container').style.transform = 'translateX(-100vw)';
+        document.querySelector('.slide-container').style.transition = 'all 0.5s';
+
+      } else {
+        document.querySelector('.slide-container').style.transform = 'translateX(0vw)';
+        document.querySelector('.slide-container').style.transition = 'all 0.5s';
+      }
+      // 0.5 초 뒤에  transition 으로 버벅이는 현상을 제거하기 위해
+      setTimeout(() => {
+        document.querySelector('.slide-container').style.transition = 'none';
+
+      }, 500);
+    })
+
+
+    /* 2.  */
+    document.querySelectorAll('.slide-box')[0].addEventListener('touchstart', function (e) {
+      console.log(e.clientX);
+      onClick = e.touches[0].clientX;
+      onOff = true;
+    })
+
+    document.querySelectorAll('.slide-box')[0].addEventListener('touchmove', function (e) {
+      if (onOff) {
+        let result = e.touches[0].clientX - onClick;
+        document.querySelector('.slide-container').style.transform = `translateX(${result}px)`
+
+      }
+    })
+
+    document.querySelectorAll('.slide-box')[0].addEventListener('touchend', function (e) {
+      onOff = false;
+      console.log(e.touches[0].clientX - onClick);
+
+      if (e.changedTouches[0].clientX - onClick < -100) {
+        document.querySelector('.slide-container').style.transform = 'translateX(-100vw)';
+        document.querySelector('.slide-container').style.transition = 'all 0.5s';
+
+      } else {
+        document.querySelector('.slide-container').style.transform = 'translateX(0vw)';
+        document.querySelector('.slide-container').style.transition = 'all 0.5s';
+      }
+      // 0.5 초 뒤에  transition 으로 버벅이는 현상을 제거하기 위해
+      setTimeout(() => {
+        document.querySelector('.slide-container').style.transition = 'none';
+
+      }, 500);
+    })
+
+
+
+  </script>
+
+
+
+  <button class="former">이전</button>
+  <button class="slide-1">1</button>
+  <button class="slide-2">2</button>
+  <button class="slide-3">3</button>
+  <button class="next">이후</button>
+
+  <script>
+
+
+    // 🟡 캐러셀 만들기
+    document.querySelector('.slide-1').addEventListener('click', () => {
+      document.querySelector('.slide-container').style.transform = 'translateX(0vw)'
+    })
+    document.querySelector('.slide-2').addEventListener('click', () => {
+      document.querySelector('.slide-container').style.transform = 'translateX(-100vw)'
+    })
+    document.querySelector('.slide-3').addEventListener('click', () => {
+      document.querySelector('.slide-container').style.transform = 'translateX(-200vw)'
+    })
+
+
+    // 이전 , 이후
+    let now = 1;
+
+    // 사진이 여러개 있다고 가정해 보자 
+    /*
+      1번 사전이면 그 다음 사진인 1+1 을 여줘 
+    */
+    document.querySelector('.next').addEventListener('click', () => {
+      document.querySelector('.slide-container').style.transform = `translateX(-${now}00vw)`
+      if (now < 2) {
+        now++;
+      }
+    })
+    document.querySelector('.former').addEventListener('click', () => {
+      document.querySelector('.slide-container').style.transform = `translateX(-${now}00vw)`
+      if (now > 0) {
+        now--;
+      }
+    })
+
+
+
+
+
+  </script>
+
+
+</body>
+
+</html>

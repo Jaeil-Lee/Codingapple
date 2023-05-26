@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .wrapper {
+      width: 300vw;
+      transition: all 1s;
+    }
+ikijijoijoi
+    .image {
+      width: 100vw;
+      float: left;
+    }
+
+    .image img {
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <div >
+    <div class="wrapper">
+      <div class="image"><img src="./car1.png"></div>
+      <div class="image"><img src="./car2.png"></div>
+      <div class="image"><img src="./car3.png"></div>
+    </div>
+  </div>
+<button class="btn_1">1번 사진</button>
+<button class="btn_2">2번 사진</button>
+<button class="btn_3">3번 사진</button>
+
+<script>
+  document.querySelector('.btn_1').addEventListener('click',()=>{
+    document.querySelector('.wrapper').style.transform='translateX(0vw)';
+  })
+  document.querySelector('.btn_2').addEventListener('click',()=>{
+    document.querySelector('.wrapper').style.transform='translateX(-100vw)';
+  })
+  document.querySelector('.btn_3').addEventListener('click',()=>{
+    document.querySelector('.wrapper').style.transform='translateX(-200vw)';
+  })
+</script>
+
+</body>
+
+</html>

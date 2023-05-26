@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .image {
+      top: 100px;
+      position: sticky;
+     
+    }
+
+    .grey {
+      background: lightgrey;
+      height: 2000px;
+      margin-top: 500px;
+    }
+
+    img {
+      /* display: block; */
+      display: block ;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+
+<body style="height: 3000px; background-color: grey; ">
+  <div class="grey">
+    <div class="image">
+      <img src="./4.card/card1.png">
+    </div>
+    <div class="image">
+      <img src="./4.card/card2.png">
+    </div>
+    <div class="image">
+      <img src="./4.card/card3.png">
+    </div>
+  </div>
+  <script>
+    window.addEventListener('scroll',()=>{
+      console.log(document.querySelector('html').scrollTop);
+    })
+
+  </script>
+
+</body>
+
+</html>

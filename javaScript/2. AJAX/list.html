@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <!-- JQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+  <!-- 부트스트랩 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+  <!-- css -->
+  <link rel="stylesheet" href="list.css">
+</head>
+
+<body>
+
+
+  <!-- 🚩 1. 카드 -->
+  <div class="container">
+    <div class="row">
+
+    </div>
+  </div>
+
+  <div class="container my-3">
+    <button class="btn btn-primary" id="price">가격순 정렬</button>
+  </div>
+
+  <div class="container my-3">
+    <button class="btn btn-success" id="sort">상품명 정렬</button>
+    <button class="btn btn-warning" id="filter">6만원 이하</button>
+  </div>
+  <script>
+
+    /** 서버에서 받아온 data들이라고 가정 **/
+    var products = [
+      { id: 0, price: 70000, title: 'Blossom Dress' },
+      { id: 1, price: 50000, title: 'Springfield Shirt' },
+      { id: 2, price: 60000, title: 'Black Monastery' }
+    ];
+
+
+    /* 버튼누르면 가격정렬 */
+    document.querySelector('#price').addEventListener('click', function (e) {
+      document.querySelector(`#more`).style.display = 'block'
+      products.sort(function (a, b) {
+        return a.price - b.price;
+      })
+
+      document.querySelector('.row').innerHTML = ''
+      addClass(products);
+    })
+
+
+    /* 🚩 1. 카드 */
+    /* forEach 함수 정의 */
+    let addClass = function (arg) {
+      arg.forEach((a, i) => {
+        var 템플릿 =
+          `<div class="col-sm-4">
+              <img src="https://via.placeholder.com/600" class="w-100">
+            <h5>${a.title}</h5>
+              <p>가격 : ${a.price}</p>
+              <button class="buy">구매</button> 
+           </div>`;
+        $('.row').append(템플릿)
+      });
+    }
+
+    addClass(products);
+
+
+    //  var products = [
+    //       { id: 0, price: 70000, title: 'Blossom Dress' },
+    //       { id: 1, price: 50000, title: 'Springfield Shirt' },
+    //       { id: 2, price: 60000, title: 'Black Monastery' }
+    //     ];
+
+
+    let clickCount = 0;
+
+    /* 🚩 localStorage에 저장하기 🚩 */
+    document.querySelector('.row').addEventListener('click', (e) => {
+      
+      let data = e.target.previousElementSibling.previousElementSibling.innerHTML;
+      // 확인용
+      console.log(data);
+      // 1. cart가 스토리지에 없으면
+      if (localStorage.getItem('cart') == null) {
+        localStorage.setItem('cart', JSON.stringify([data]));
+      }
+      // 2. 있으면 배열 꺼난다음 다시 추가 
+      else {
+        let getToJSON = JSON.parse(localStorage.getItem('cart')); // 꺼낸 배열
+        if (getToJSON.includes(data)) {
+          console.log('놉');
+
+          return;
+        }
+        else {
+          getToJSON.push(data); // 배열인 상태 
+          localStorage.setItem('cart', JSON.stringify(getToJSON));
+        }
+      }
+    })
+
+
+
+    // 상품 정렬
+    document.querySelector('#sort').addEventListener('click', () => {
+      console.log('상품정렬 누름')
+      products.sort(function (a, b) {
+        if (a.title > b.title) {
+          return -1;
+        } else {
+          return +1;
+        }
+      })
+
+      document.querySelector('.row').innerHTML = '';
+      addClass(products);
+    })
+
+    // 6만원 이하 정렬
+    document.querySelector('#filter').addEventListener('click', () => {
+      let result = products.filter(function (e) {
+        return e.price <= 60000
+      });
+
+      document.querySelector('.row').innerHTML = '';
+      console.log(result)
+      addClass(result);
+    })
+
+
+
+  </script> <!-- /🚩 1. 카드 -->
+
+
+
+
+
+  <!-- 🚩 2. 상품 더보기 버튼 -->
+  <div class="container">
+    <button class="btn btn-danger" id="more">더보기</button>
+  </div>
+
+  <script>
+    let list = '';
+    let count = 0;
+
+
+
+    $('#more').click(function () {
+
+      count++;
+      if (count >= 2) {
+        document.querySelector(`#more`).style.display = 'none'
+      }
+      $.get(`https://codingapple1.github.io/js/more${count}.json`)
+        .done((data) => {
+          console.log(data)
+          data.forEach((a, i) => {
+            var 템플릿 =
+              `<div class="col-sm-4">
+              <img src="https://via.placeholder.com/600" class="w-100">
+              <h5>${data[i].title}</h5>
+              <p>가격 : ${data[i].price}</p>
+            </div>`;
+            $('.row').append(템플릿)
+            list += 템플릿;
+          })
+
+        });
+    });
+  </script>
+  <!-- <div class="container">
+    <button class="btn btn-danger" id="more">더보기</button>
+  </div>
+
+  <div class="box">
+
+  </div>
+
+  <script>
+
+    let count = 0;
+
+    /* 버튼 누르면 html요소 추가 */
+    document.querySelector('#more').addEventListener('click', () => {
+
+      count++;
+
+      $.get(`https://codingapple1.github.io/js/more${count}.json`)
+        .done(data => {
+          console.log(data)
+          if (count == data.length - 1) {
+            document.querySelector('#button').classList.add('onOff')};
+          addClass(data);
+        }).fail(() => console.log("실패함"))
+
+    })
+
+  </script> -->
+  <!-- / 2. 상품 더보기 버튼 -->
+
+
+
+
+
+
+</body>
+
+</html>
