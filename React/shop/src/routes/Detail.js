@@ -5,7 +5,7 @@ function Detail(props) {
 
   let {id} = useParams();
   let 찾은상품 = props.shoes.find(function(e){
-    return e.id == id
+    return e.id == id;
   });
   return (
     <div className="container">
