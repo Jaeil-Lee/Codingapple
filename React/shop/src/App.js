@@ -61,7 +61,10 @@ function App() {
           <Route path='two' element={ <div>EGO-WRAPPIN'のアルバムがゲット！！</div>} />
         </Route>
 
-        <Route path="/detail/:id" element={ <Detail shoes={shoes}/> }/>
+        <Route path="/detail" element={ <div>detail site</div> }/>
+        <Route path="/detail/:id" element={ <Detail shoes={shoes}  navigate={navigate}/> }/>
+
+
         
         <Route path='*' element={<div style={{color:'red',fontSize:'400px'}}>없는 페이지</div>} />
       </Routes>
